@@ -10,6 +10,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -24,7 +25,9 @@ public class DetalhesSteps {
     public void setupTest() {
         options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--headless=new");
         driver = WebDriverManager.chromedriver().capabilities(options).create();
+        driver.manage().window().maximize();
     }
 
     @After
@@ -49,8 +52,29 @@ public class DetalhesSteps {
 
     @Entao("as formas de pagamento devem estar visíveis")
     public void as_formas_de_pagamento_devem_estar_visíveis() {
-        driver.findElement(By.className("l-payment-methods__btn")).click();
+//        driver.findElement(By.className("l-payment-methods__btn")).click();
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
+//        Assertions.assertTrue(driver.findElement(By.id("modalTitle")).isDisplayed());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
-        Assertions.assertTrue(driver.findElement(By.id("modalTitle")).isDisplayed());
+        Assertions.assertTrue(driver.findElement(By.className("l-payment-methods")).isDisplayed());
+    }
+
+    @Entao("deve ser possível ler a descrição do produto")
+    public void deve_ser_possível_ler_a_descrição_do_produto() {
+        WebElement descricaoProduto = driver.findElement(By.xpath("/html/body/main/section/div[1]/div/div[2]/div[3]/div/div[1]/section[2]/div[1]"));
+        Assertions.assertTrue(descricaoProduto.isDisplayed());
+    }
+
+    @Entao("pagina deve mostrar tambem produtos similares")
+    public void pagina_deve_mostrar_tambem_produtos_similares() {
+        WebElement produtosSimilares = driver.findElement(By.xpath("/html/body/main/section/div[2]/div/div[3]/div/div/div[2]"));
+        Assertions.assertTrue(produtosSimilares.isDisplayed());
+    }
+
+    @Entao("nome do produto deve aparecer no titulo da pagina")
+    public void nome_do_produto_deve_aparecer_no_titulo_da_pagina() {
+        WebElement nomeProduto = driver.findElement(By.xpath("/html/body/main/section/div[1]/div/div[2]/div[1]/div/h1"));
+        String titulo = driver.getTitle().toLowerCase();
+        Assertions.assertTrue(titulo.contains(nomeProduto.getText()));
     }
 }

@@ -9,12 +9,21 @@ Funcionalidade: Detalhes de um produto
   Quero ver detalhes de um produto
   Para para ver mais informações do produto
 
-  Cenario: Validar imagem do produto
+  Contexto:
     Dado que o usuario esteja na home page
     Quando clicar sobre um produto
+
+  Cenario: Validar imagem do produto
     Entao a imagem do produto deve estar visível
 
   Cenario: Validar dados de pagamento do produto
-    Dado que o usuario esteja na home page
-    Quando clicar sobre um produto
     Entao as formas de pagamento devem estar visíveis
+
+  Cenario: Validar descrição do produto
+    Entao deve ser possível ler a descrição do produto
+
+  Cenario: Validar produtos similares no final da pagina
+    Entao pagina deve mostrar tambem produtos similares
+
+  Cenario: Validar titulo da pagina
+    Entao nome do produto deve aparecer no titulo da pagina
