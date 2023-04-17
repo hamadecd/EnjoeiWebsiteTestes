@@ -1,20 +1,24 @@
-package enjoei.website.teste;
+package enjoei.website.teste.stepDefinitions;
 
-import io.cucumber.java.en.*;
+
+
+
+
+import io.cucumber.java.pt.*;
 
 import org.junit.jupiter.api.Assertions.*;
 
 public class StepDefinitions {
 
-    @Given("an example scenario")
+    @Dado("an example scenario")
     public void anExampleScenario() {
     }
 
-    @When("all step definitions are implemented")
+    @Quando("all step definitions are implemented")
     public void allStepDefinitionsAreImplemented() {
     }
 
-    @Then("the scenario passes")
+    @Então("the scenario passes")
     public void theScenarioPasses() {
     }
 
