@@ -19,4 +19,4 @@ Funcionalidade: : Busca de itens
   Cenário: : Deve ser possível buscar lojas
     Dado abrir o navegador no site da enjoei
     Quando clicar na busca por loja
-    Então exibir a busco da loja
+    Então exibir a busca da loja
