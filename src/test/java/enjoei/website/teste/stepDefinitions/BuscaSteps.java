@@ -39,9 +39,9 @@ public class BuscaSteps {
     @Quando("clicar na busca por produto")
     public void clicar_na_busca_por_produto() throws InterruptedException {
         Thread.sleep(2000);
+        driver.manage().window().maximize();
         driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("calça");
-        Thread.sleep(2000);
         driver.findElement(By.xpath("/html/body/div[2]/header/div/div/div/div[3]/div/form/div[2]/div/div[1]/div[2]/button[1]")).click();
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys(Keys.ENTER);
         }
@@ -53,9 +53,9 @@ public class BuscaSteps {
     @Quando("clicar na busca por loja")
     public void clicar_na_busca_por_loja() throws InterruptedException {
         Thread.sleep(2000);
+        driver.manage().window().maximize();
         driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("calça");
-        Thread.sleep(2000);
         driver.findElement(By.xpath("/html/body/div[2]/header/div/div/div/div[3]/div/form/div[2]/div/div[1]/div[2]/button[2]")).click();
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys(Keys.ENTER);
     }
