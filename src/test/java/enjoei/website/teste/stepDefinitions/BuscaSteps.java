@@ -2,11 +2,13 @@ package enjoei.website.teste.stepDefinitions;
 
 import io.cucumber.java.pt.*;
 import org.junit.jupiter.api.Assertions;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class BuscaSteps {
     ChromeDriver driver;
@@ -33,17 +35,20 @@ public class BuscaSteps {
     }
     @Então("exibir sugestão de categorias e buscas recentes")
     public void exibir_sugestão_de_categorias_e_buscas_recentes() {
-        Assertions.assertTrue(driver.findElement(By.cssSelector("body > div:nth-child(6) > header > div:nth-child(3) > div > div > div > div > div > div > div.c-search-highlights-tags.c-search-highlights-content__recent-terms > h3")).isDisplayed());
+        Assertions.assertEquals("recente",driver.findElement(By.xpath("/html/body")).getText());
     }
 
     @Quando("clicar na busca por produto")
     public void clicar_na_busca_por_produto() throws InterruptedException {
-        Thread.sleep(2000);
+
         driver.manage().window().maximize();
+        //Alert alert = driver.switchTo().alert();
+        //alert.dismiss();
+
+
         driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("calça");
-        driver.findElement(By.xpath("/html/body/div[2]/header/div/div/div/div[3]/div/form/div[2]/div/div[1]/div[2]/button[1]")).click();
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys(Keys.ENTER);
+        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("cal");
+        driver.findElement(By.xpath("/html/body/div[2]/header/div/div/div/div[3]/div/form/div[1]/div/div[1]/div/input[1]")).sendKeys("ça" + Keys.ENTER);
         }
     @Então("exibir a busca do produto")
     public void exibir_a_busca_do_produto() {
@@ -52,11 +57,12 @@ public class BuscaSteps {
 
     @Quando("clicar na busca por loja")
     public void clicar_na_busca_por_loja() throws InterruptedException {
-        Thread.sleep(2000);
         driver.manage().window().maximize();
+        Thread.sleep(500);
         driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("calça");
-        driver.findElement(By.xpath("/html/body/div[2]/header/div/div/div/div[3]/div/form/div[2]/div/div[1]/div[2]/button[2]")).click();
+        Thread.sleep(500);
+        driver.findElement(By.xpath("/html/body/div[2]/header/div/div/div/div[3]/div/form/div[1]/div/div[1]/div/input[2]")).click();
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys(Keys.ENTER);
     }
     @Então("exibir a busca da loja")
