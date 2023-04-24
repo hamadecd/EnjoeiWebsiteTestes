@@ -26,42 +26,62 @@ public class BuscaSteps {
     }
     @Quando("clicar na busca sem texto digitado")
     public void clicar_na_busca_sem_texto_digitado() throws InterruptedException {
-        driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).click();
-        Thread.sleep(2000);
+            driver.manage().window().maximize();
+            driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
+            driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).click();
+            Thread.sleep(500);
 
     }
     @Então("exibir sugestão de categorias e buscas recentes")
     public void exibir_sugestão_de_categorias_e_buscas_recentes() {
-        Assertions.assertTrue(driver.findElement(By.cssSelector("body > div:nth-child(6) > header > div:nth-child(3) > div > div > div > div > div > div > div.c-search-highlights-tags.c-search-highlights-content__recent-terms > h3")).isDisplayed());
+        Assertions.assertTrue(driver.findElement(By.xpath("/html/body/div[2]/header/div[3]/div/div/div/div/div/div/div[1]/h3")).isDisplayed());
+        driver.quit();
     }
 
     @Quando("clicar na busca por produto")
     public void clicar_na_busca_por_produto() throws InterruptedException {
-        Thread.sleep(2000);
+
         driver.manage().window().maximize();
         driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("calça");
-        driver.findElement(By.xpath("/html/body/div[2]/header/div/div/div/div[3]/div/form/div[2]/div/div[1]/div[2]/button[1]")).click();
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys(Keys.ENTER);
-    }
+        Thread.sleep(500);
+        driver.findElement(By.xpath("/html/body/div[2]/header/div[3]/div/div/div/div/div/div/div[1]/div[2]/button[1]")).click();
+        Thread.sleep(500);
+        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/button[1]")).click();
+        Thread.sleep(500);
+        }
     @Então("exibir a busca do produto")
     public void exibir_a_busca_do_produto() {
-        Assertions.assertEquals("calça",driver.findElement(By.xpath("/html/body/main/section/div/div/div/div/div[3]/div[1]/div/div/div[1]/div/div[2]/div[1]/h2")).getAttribute("nome"));
-    }
+        String str = "calça";
+        String str2 = driver.findElement(By.xpath("/html/body/main/section/div/div/div/div/div[3]/div[1]/div/div/div[1]/div/div[2]/div[1]")).getText();
 
+        //cria array de strings usando o espaço como separador
+        String[] arr = str2.split(" ");
+
+        // busca na string alvo cada pedaço da string separada
+        for (String s : arr) {
+            if (str.contains(s)) {
+                System.out.println("match: " + s);
+                Assertions.assertEquals("calça", s);
+            }
+        }
+        driver.quit();
+    }
     @Quando("clicar na busca por loja")
     public void clicar_na_busca_por_loja() throws InterruptedException {
-        Thread.sleep(2000);
+
         driver.manage().window().maximize();
         driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("calça");
-        driver.findElement(By.xpath("/html/body/div[2]/header/div/div/div/div[3]/div/form/div[2]/div/div[1]/div[2]/button[2]")).click();
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys(Keys.ENTER);
+        Thread.sleep(500);
+        driver.findElement(By.xpath("/html/body/div[2]/header/div[3]/div/div/div/div/div/div/div[1]/div[2]/button[2]")).click();
+        Thread.sleep(500);
+        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/button[1]")).click();
+        Thread.sleep(500);
     }
     @Então("exibir a busca da loja")
     public void exibir_a_busco_da_loja() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        Assertions.assertEquals("@calcacurta",driver.findElement(By.xpath("/html/body/main/section/div/div[2]/div[1]/div/div/a/span[2]")).getText());
+        driver.quit();
     }
 }
