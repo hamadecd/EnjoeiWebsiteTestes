@@ -26,9 +26,9 @@ public class BuscaSteps {
     }
     @Quando("clicar na busca sem texto digitado")
     public void clicar_na_busca_sem_texto_digitado() throws InterruptedException {
-            driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
-            driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).click();
-            Thread.sleep(2000);
+        driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
+        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).click();
+        Thread.sleep(2000);
 
     }
     @Então("exibir sugestão de categorias e buscas recentes")
@@ -44,10 +44,10 @@ public class BuscaSteps {
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("calça");
         driver.findElement(By.xpath("/html/body/div[2]/header/div/div/div/div[3]/div/form/div[2]/div/div[1]/div[2]/button[1]")).click();
         driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys(Keys.ENTER);
-        }
+    }
     @Então("exibir a busca do produto")
     public void exibir_a_busca_do_produto() {
-       Assertions.assertEquals("calça",driver.findElement(By.xpath("/html/body/main/section/div/div/div/div/div[3]/div[1]/div/div/div[1]/div/div[2]/div[1]/h2")).getAttribute("nome"));
+        Assertions.assertEquals("calça",driver.findElement(By.xpath("/html/body/main/section/div/div/div/div/div[3]/div[1]/div/div/div[1]/div/div[2]/div[1]/h2")).getAttribute("nome"));
     }
 
     @Quando("clicar na busca por loja")
