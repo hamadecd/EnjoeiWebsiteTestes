@@ -7,11 +7,10 @@
 Funcionalidade: Detalhes de um produto
   Como usuário, mesmo que não esteja logado
   Quero ver detalhes de um produto
-  Para para ver mais informações do produto
+  Para ver mais informações do produto
 
   Contexto:
-    Dado que o usuario esteja na home page
-    Quando clicar sobre um produto
+    Dado que o usuario esteja na pagina do produto
 
   Cenario: Validar imagem do produto
     Entao a imagem do produto deve estar visível
