@@ -1,6 +1,8 @@
 package enjoei.website.teste.stepDefinitions;
 
+import io.cucumber.java.After;
 import io.cucumber.java.pt.*;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -17,7 +19,11 @@ public class BuscaSteps {
         driver = new ChromeDriver(options);
 
     }
-
+@After
+public void TearDown()
+    {
+        driver.quit();
+    }
     @Dado("abrir o navegador no site da enjoei")
     public void abrir_o_navegador_no_site_da_enjoei() {
         IniciarChrome();
@@ -35,7 +41,7 @@ public class BuscaSteps {
     @Então("exibir sugestão de categorias e buscas recentes")
     public void exibir_sugestão_de_categorias_e_buscas_recentes() {
         Assertions.assertTrue(driver.findElement(By.xpath("/html/body/div[2]/header/div[3]/div/div/div/div/div/div/div[1]/h3")).isDisplayed());
-        driver.quit();
+
     }
 
     @Quando("clicar na busca por produto")
@@ -65,7 +71,7 @@ public class BuscaSteps {
                 Assertions.assertEquals("calça", s);
             }
         }
-        driver.quit();
+
     }
     @Quando("clicar na busca por loja")
     public void clicar_na_busca_por_loja() throws InterruptedException {
@@ -82,6 +88,6 @@ public class BuscaSteps {
     @Então("exibir a busca da loja")
     public void exibir_a_busco_da_loja() {
         Assertions.assertEquals("@calcacurta",driver.findElement(By.xpath("/html/body/main/section/div/div[2]/div[1]/div/div/a/span[2]")).getText());
-        driver.quit();
+
     }
 }
