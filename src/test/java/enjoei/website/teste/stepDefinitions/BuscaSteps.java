@@ -20,8 +20,8 @@ public class BuscaSteps {
 
     }
 @After
-public void TearDown()
-    {
+public void TearDown() throws InterruptedException {
+        Thread.sleep(1000);
         driver.quit();
     }
     @Dado("abrir o navegador no site da enjoei")
