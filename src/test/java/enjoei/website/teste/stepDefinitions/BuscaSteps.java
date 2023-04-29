@@ -1,32 +1,26 @@
 package enjoei.website.teste.stepDefinitions;
 
+import enjoei.website.teste.hooks.Hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.pt.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class BuscaSteps {
-    ChromeDriver driver;
+    WebDriver driver = Hooks.getDriver();
 
-    public void IniciarChrome() {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
-
-    }
-@After
-public void TearDown() throws InterruptedException {
-        Thread.sleep(1000);
-        driver.quit();
-    }
     @Dado("abrir o navegador no site da enjoei")
     public void abrir_o_navegador_no_site_da_enjoei() {
-        IniciarChrome();
         driver.get("https://www.enjoei.com.br/");
 
     }
@@ -34,8 +28,9 @@ public void TearDown() throws InterruptedException {
     public void clicar_na_busca_sem_texto_digitado() throws InterruptedException {
             driver.manage().window().maximize();
             driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
-            driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).click();
-            Thread.sleep(500);
+        String xpath = "/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]";
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
+
 
     }
     @Então("exibir sugestão de categorias e buscas recentes")
@@ -49,13 +44,16 @@ public void TearDown() throws InterruptedException {
 
         driver.manage().window().maximize();
         driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("calça");
-        Thread.sleep(500);
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[3]/div/div/div/div/div/div/div[1]/div[2]/button[1]")).click();
-        Thread.sleep(500);
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/button[1]")).click();
-        Thread.sleep(500);
-        }
+        String xpath = "/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]";
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).sendKeys("calça");
+        xpath = "/html/body/div[2]/header/div[3]/div/div/div/div/div/div/div[1]/div[2]/button[1]";
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
+        xpath = "/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/button[1]";
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
+
+
+
+    }
     @Então("exibir a busca do produto")
     public void exibir_a_busca_do_produto() {
         String str = "calça";
@@ -78,12 +76,14 @@ public void TearDown() throws InterruptedException {
 
         driver.manage().window().maximize();
         driver.findElement(By.xpath("//button[@class=\"c-modal__close\"]")).click();
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]")).sendKeys("calça");
-        Thread.sleep(500);
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[3]/div/div/div/div/div/div/div[1]/div[2]/button[2]")).click();
-        Thread.sleep(500);
-        driver.findElement(By.xpath("/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/button[1]")).click();
-        Thread.sleep(500);
+        String xpath = "/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/input[1]";
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).sendKeys("calça");
+        xpath = "/html/body/div[2]/header/div[3]/div/div/div/div/div/div/div[1]/div[2]/button[2]";
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
+        xpath = "/html/body/div[2]/header/div[1]/div/div/div[3]/div/form/div/div/div[1]/div/button[1]";
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath))).click();
+
+
     }
     @Então("exibir a busca da loja")
     public void exibir_a_busco_da_loja() {
