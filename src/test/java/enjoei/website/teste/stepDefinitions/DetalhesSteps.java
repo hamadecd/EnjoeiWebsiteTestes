@@ -1,5 +1,6 @@
 package enjoei.website.teste.stepDefinitions;
 
+import enjoei.website.teste.hooks.Hooks;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
@@ -9,6 +10,7 @@ import io.cucumber.java.pt.Quando;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,24 +23,8 @@ import java.util.List;
 
 public class DetalhesSteps {
 
-    WebDriver driver;
-    ChromeOptions options;
-
-    @Before
-    public void setupTest() {
-        options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        options.addArguments("--headless=new");
-        driver = WebDriverManager.chromedriver().capabilities(options).create();
-        driver.manage().window().maximize();
-    }
-
-    @After
-    public void tearDown() {
-        if(driver != null) {
-            driver.quit();
-        }
-    }
+    WebDriver driver = Hooks.getDriver();
+    JavascriptExecutor js = (JavascriptExecutor) driver;
 
     @Dado("que o usuario esteja na pagina do produto")
     public void queOUsuarioEstejaNaPaginaDoProduto() {
@@ -58,8 +44,7 @@ public class DetalhesSteps {
     @Entao("as formas de pagamento devem estar visíveis")
     public void asFormasDePagamentoDevemEstarVisíveis() {
         driver.findElement(By.cssSelector("ul > li.l-payment-methods__item.-last-item > button > svg")).click();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        String formasDePagamento = driver.findElement(By.cssSelector("div.c-modal__content > [id='modalTitle'] + p")).getText();
+        String formasDePagamento = new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.c-modal__content > [id='modalTitle'] + p"))).getText();
         String texto = "você pode pagar no cartão de crédito em até 12x ou à vista no boleto bancário ou pix.";
         Assertions.assertEquals(texto, formasDePagamento);
         Assertions.assertTrue(driver.findElement(By.className("l-payment-methods")).isDisplayed());
@@ -74,15 +59,9 @@ public class DetalhesSteps {
 
     @Entao("pagina deve mostrar tambem produtos similares")
     public void paginaDeveMostrarTambemProdutosSimilares() {
-        /*
-        * Tentei de várias maneiras validar esse teste, chegou a funcionar uma vez, aí alterava, funcionava mais uma vez
-        * e depois não funciona mais. Tentei por xpath, cssSelector, mas não adianta.
-        */
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        Boolean h2 = driver.getPageSource().contains("você também vai curtir");
-        System.out.println(h2);
-        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.presenceOfElementLocated(By.xpath("//h2[text()='você também vai curtir']")));
-        WebElement produtosSimilares = driver.findElement(By.xpath("//h2[text()='você também vai curtir']"));
+
+        js.executeScript("window.scrollTo(0, 1500)");
+        WebElement produtosSimilares = new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(By.xpath("//h2[text()='você também vai curtir']")));
         Assertions.assertTrue(produtosSimilares.isDisplayed());
         Assertions.assertEquals("você também vai curtir", produtosSimilares.getText());
     }
